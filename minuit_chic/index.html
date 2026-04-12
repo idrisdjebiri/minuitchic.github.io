@@ -488,24 +488,17 @@
 
   let products = [], adminData = null, isLoggedIn = false, loginTries = 0, currentImgData = null, setupTemp = {};
 
-  // FONCTION CORRIGÉE - Plus de bug de disparition d'articles !
   async function saveProducts() {
     const col = collection(db, 'products');
-    
-    // Sauvegarde chaque produit individuellement
     for (const p of products) {
       const { _docId, ...data } = p;
       if (_docId) {
-        // Mettre à jour le produit existant
         await setDoc(doc(db, 'products', _docId), data);
       } else {
-        // Créer un nouveau produit
         const newDoc = await addDoc(col, data);
         p._docId = newDoc.id;
       }
     }
-    
-    // Nettoie les produits qui ne sont plus dans le tableau
     const snap = await getDocs(col);
     const currentIds = new Set(products.map(p => p._docId).filter(id => id));
     for (const d of snap.docs) {
@@ -759,6 +752,7 @@
     reader.readAsDataURL(input.files[0]);
   }
 
+  // ✅ NUMERO CORRIGÉ ICI - 213561538339
   function commanderProduit(nom) {
     window.open('https://wa.me/213561538339?text=' + encodeURIComponent('Bonjour Minuit Chic ! Je suis intéressée par : ' + nom), '_blank');
   }
