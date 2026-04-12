@@ -755,7 +755,7 @@
 
   function previewImg(input) {
     if (!input.files || !input.files[0]) return;
-    const reader = new FileReader();
+    const reader = new FileReader(); 
     reader.onload = e => { currentImgData = e.target.result; const prev = document.getElementById('img-preview'); prev.src = currentImgData; prev.style.display = 'block'; };
     reader.readAsDataURL(input.files[0]);
   }
