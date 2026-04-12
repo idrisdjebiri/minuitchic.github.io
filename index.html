@@ -16,8 +16,7 @@
   nav ul { list-style: none; display: flex; gap: 2.5rem; }
   nav ul a { text-decoration: none; color: var(--creme); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; transition: color 0.3s; }
   nav ul a:hover { color: var(--or); }
-  .nav-admin-btn { background: transparent; border: 0.5px solid var(--or);
-                  color: var(--or); padding: 0.5rem 1.2rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
+  .nav-admin-btn { background: transparent; border: 0.5px solid var(--or); color: var(--or); padding: 0.5rem 1.2rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
   .nav-admin-btn:hover { background: var(--or); color: var(--noir); }
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,169,110,0.08) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #111008 50%, #0a0a0a 100%); }
@@ -489,24 +488,17 @@
 
   let products = [], adminData = null, isLoggedIn = false, loginTries = 0, currentImgData = null, setupTemp = {};
 
-  // FONCTION CORRIGÉE - Plus de bug de disparition d'articles !
   async function saveProducts() {
     const col = collection(db, 'products');
-    
-    // Sauvegarde chaque produit individuellement
     for (const p of products) {
       const { _docId, ...data } = p;
       if (_docId) {
-        // Mettre à jour le produit existant
         await setDoc(doc(db, 'products', _docId), data);
       } else {
-        // Créer un nouveau produit
         const newDoc = await addDoc(col, data);
         p._docId = newDoc.id;
       }
     }
-    
-    // Nettoie les produits qui ne sont plus dans le tableau
     const snap = await getDocs(col);
     const currentIds = new Set(products.map(p => p._docId).filter(id => id));
     for (const d of snap.docs) {
@@ -755,13 +747,14 @@
 
   function previewImg(input) {
     if (!input.files || !input.files[0]) return;
-    const reader = new FileReader(); 
+    const reader = new FileReader();
     reader.onload = e => { currentImgData = e.target.result; const prev = document.getElementById('img-preview'); prev.src = currentImgData; prev.style.display = 'block'; };
     reader.readAsDataURL(input.files[0]);
   }
 
+  // ✅ NUMERO CORRIGÉ ICI - 213561538339
   function commanderProduit(nom) {
-    window.open('https://wa.me/213561638339?text=' + encodeURIComponent('Bonjour Minuit Chic ! Je suis intéressée par : ' + nom), '_blank');
+    window.open('https://wa.me/213561538339?text=' + encodeURIComponent('Bonjour Minuit Chic ! Je suis intéressée par : ' + nom), '_blank');
   }
 
   let currentDetailProduct = null;
