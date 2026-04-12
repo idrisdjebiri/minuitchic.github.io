@@ -261,7 +261,7 @@
     <span style="color:rgba(201,169,110,0.2)">·</span>
     <a href="https://wa.me/213561638339" target="_blank">WhatsApp</a>
     <span style="color:rgba(201,169,110,0.2)">·</span>
-    <a href="mailto:contact@minuitchic.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#51323e3f25303225113c383f243825323938327f323e3c">Contact</a>
   </div>
   <p style="margin-top:2rem; font-size:0.5rem; letter-spacing:0.2em; color:rgba(136,136,136,0.4); text-transform:uppercase;">
     © 2025 Minuit Chic · Tous droits réservés
@@ -565,77 +565,54 @@
 <!-- ════════════════════════════════════
      JAVASCRIPT
 ════════════════════════════════════ -->
-<script>
-  /* ─── DONNÉES PAR DÉFAUT POUR QUE LE SITE FONCTIONNE SUR TOUS LES APPAREILS ─── */
-  
-  // Vérifier et créer les données par défaut si elles n'existent pas
-  if (!localStorage.getItem('mc_products') || JSON.parse(localStorage.getItem('mc_products')).length === 0) {
-    // Produits d'exemple pour que la boutique ne soit pas vide
-    let defaultProducts = [
-      {
-        name: "Robe Velours Noir",
-        price: "18900",
-        cat: "Robe",
-        desc: "Robe longue en velours noir, coupe cintrée, fente latérale. Idéale pour les soirées d'hiver.",
-        badge: "Nouveau",
-        img: null,
-        id: Date.now() + 1
-      },
-      {
-        name: "Sac à main Orphée",
-        price: "12900",
-        cat: "Sac",
-        desc: "Sac en cuir véritable, finition dorée, bandoulière amovible.",
-        badge: "Exclusif",
-        img: null,
-        id: Date.now() + 2
-      },
-      {
-        name: "Boucles d'oreilles Perles",
-        price: "4500",
-        cat: "Bijou",
-        desc: "Boucles d'oreilles en perles d'eau douce et argent fin.",
-        badge: "Coup de cœur",
-        img: null,
-        id: Date.now() + 3
-      },
-      {
-        name: "Blouse Soie ivoire",
-        price: "15900",
-        cat: "Robe",
-        desc: "Blouse en soie naturelle, col lavallière, manches ballon.",
-        badge: "",
-        img: null,
-        id: Date.now() + 4
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ─── ÉTAT GLOBAL ─── */
+  let products       = [];
+  let adminData      = null;
+  let isLoggedIn     = false;
+  let loginTries     = 0;
+  let currentImgData = null;
+  let setupTemp      = {};
+
+  /* ─── STOCKAGE PARTAGÉ (tous appareils) ─── */
+  async function storageGet(key) {
+    try {
+      if (window.storage) {
+        const r = await window.storage.get(key, true);
+        return r ? r.value : null;
       }
-    ];
-    localStorage.setItem('mc_products', JSON.stringify(defaultProducts));
+    } catch(e) {}
+    return localStorage.getItem(key);
   }
-  
-  // Vérifier et créer un compte admin par défaut si nécessaire
-  if (!localStorage.getItem('mc_admin')) {
-    // Compte admin par défaut : username = "admin", mot de passe = "admin123"
-    let defaultAdmin = {
-      username: "admin",
-      email: "admin@minuitchic.com",
-      pwd: btoa(unescape(encodeURIComponent("admin123")))
-    };
-    localStorage.setItem('mc_admin', JSON.stringify(defaultAdmin));
+  async function storageSet(key, val) {
+    try {
+      if (window.storage) {
+        await window.storage.set(key, val, true);
+        return;
+      }
+    } catch(e) {}
+    localStorage.setItem(key, val);
   }
 
-  /* ─── ÉTAT GLOBAL ─── */
-  let products    = JSON.parse(localStorage.getItem('mc_products') || '[]');
-  let adminData   = JSON.parse(localStorage.getItem('mc_admin')    || 'null');
-  let isLoggedIn  = false;
-  let loginTries  = 0;
-  let currentImgData = null;
-  let setupTemp   = {};
+  async function saveProducts() {
+    await storageSet('mc_products', JSON.stringify(products));
+  }
+  async function saveAdmin() {
+    await storageSet('mc_admin', JSON.stringify(adminData));
+  }
 
   /* ─── INIT ─── */
-  function init() {
+  async function init() {
+    const rawProducts = await storageGet('mc_products');
+    const rawAdmin    = await storageGet('mc_admin');
+    if (rawProducts) { try { products = JSON.parse(rawProducts); } catch(e) { products = []; } }
+    if (rawAdmin)    { try { adminData = JSON.parse(rawAdmin);   } catch(e) { adminData = null; } }
+    if (!adminData) {
+      adminData = { username: 'admin', email: 'admin@minuitchic.com', pwd: btoa(unescape(encodeURIComponent('admin123'))) };
+      await saveAdmin();
+    }
     renderGrid();
-    // Ne pas montrer le setup si un compte admin existe déjà
-    if (!adminData || Object.keys(adminData).length === 0) {
+    if (!rawAdmin) {
       document.getElementById('setup-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -677,7 +654,7 @@
     if (p1.length < 6)  { showAlert(e, 'Le mot de passe doit contenir au moins 6 caractères.'); return; }
     if (p1 !== p2)       { showAlert(e, 'Les deux mots de passe ne correspondent pas.'); return; }
     adminData = { username: setupTemp.username, email: setupTemp.email, pwd: btoa(unescape(encodeURIComponent(p1))) };
-    localStorage.setItem('mc_admin', JSON.stringify(adminData));
+    await saveAdmin();
     document.getElementById('setup-overlay').classList.remove('open');
     document.body.style.overflow = '';
     isLoggedIn = true;
@@ -760,14 +737,14 @@
     }
   }
 
-  function reinitialiserMdp() {
+  async function reinitialiserMdp() {
     const p1  = document.getElementById('new-pwd').value;
     const p2  = document.getElementById('new-pwd2').value;
     const err = document.getElementById('forgot-err-b');
     if (p1.length < 6) { showAlert(err, 'Minimum 6 caractères.'); return; }
     if (p1 !== p2)     { showAlert(err, 'Les mots de passe ne correspondent pas.'); return; }
     adminData.pwd = btoa(unescape(encodeURIComponent(p1)));
-    localStorage.setItem('mc_admin', JSON.stringify(adminData));
+    await saveAdmin();
     fermerForgot();
     setTimeout(() => {
       ouvrirLogin();
@@ -808,7 +785,7 @@
     resetAlert('settings-err'); resetAlert('settings-ok');
   }
 
-  function sauvegarderCompte() {
+  async function sauvegarderCompte() {
     const newU   = document.getElementById('new-username').value.trim();
     const newEm  = document.getElementById('new-email').value.trim();
     const newP   = document.getElementById('settings-pwd').value;
@@ -832,13 +809,13 @@
     if (newU)  { adminData.username = newU; document.getElementById('admin-username-display').textContent = newU; }
     if (newEm) adminData.email = newEm;
     if (newP)  adminData.pwd   = btoa(unescape(encodeURIComponent(newP)));
-    localStorage.setItem('mc_admin', JSON.stringify(adminData));
+    await saveAdmin();
     showAlert(ok, '✓ Compte mis à jour avec succès !');
     prefillSettings();
   }
 
   /* ─── PRODUITS ─── */
-  function saveProducts() { localStorage.setItem('mc_products', JSON.stringify(products)); }
+  /* saveProducts et saveAdmin définis en haut comme fonctions async partagées */
   function updateCount()  { document.getElementById('count').textContent = products.length; }
 
   function renderGrid() {
@@ -893,7 +870,7 @@
       </div>`).join('');
   }
 
-  function ajouterProduit() {
+  async function ajouterProduit() {
     const name  = document.getElementById('p-name').value.trim();
     const price = document.getElementById('p-price').value.trim();
     const cat   = document.getElementById('p-cat').value;
@@ -901,7 +878,7 @@
     const badge = document.getElementById('p-badge').value;
     if (!name || !price) { alert('Merci de renseigner le nom et le prix.'); return; }
     products.unshift({ name, price, cat, desc, badge, img: currentImgData, id: Date.now() });
-    saveProducts(); renderGrid(); updateCount();
+    await saveProducts(); renderGrid(); updateCount();
     ['p-name','p-price','p-desc'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('p-badge').value = '';
     document.getElementById('img-preview').style.display = 'none';
@@ -912,10 +889,10 @@
     setTimeout(() => msg.style.display = 'none', 3000);
   }
 
-  function supprimerProduit(i) {
+  async function supprimerProduit(i) {
     if (!confirm('Supprimer cet article définitivement ?')) return;
     products.splice(i, 1);
-    saveProducts(); renderGrid(); renderAdminList();
+    await saveProducts(); renderGrid(); renderAdminList();
   }
 
   function previewImg(input) {
@@ -957,9 +934,7 @@
   function resetAlert(id) { const el = document.getElementById(id); if(el){ el.textContent=''; el.classList.remove('show'); } }
   function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 
-  /* ─── LANCEMENT ─── */
   init();
 </script>
-
 </body>
 </html>
