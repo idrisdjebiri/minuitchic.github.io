@@ -488,11 +488,31 @@
 
   let products = [], adminData = null, isLoggedIn = false, loginTries = 0, currentImgData = null, setupTemp = {};
 
+  // FONCTION CORRIGÉE - Plus de bug de disparition d'articles !
   async function saveProducts() {
     const col = collection(db, 'products');
+    
+    // Sauvegarde chaque produit individuellement
+    for (const p of products) {
+      const { _docId, ...data } = p;
+      if (_docId) {
+        // Mettre à jour le produit existant
+        await setDoc(doc(db, 'products', _docId), data);
+      } else {
+        // Créer un nouveau produit
+        const newDoc = await addDoc(col, data);
+        p._docId = newDoc.id;
+      }
+    }
+    
+    // Nettoie les produits qui ne sont plus dans le tableau
     const snap = await getDocs(col);
-    for (const d of snap.docs) await deleteDoc(d.ref);
-    for (const p of products) { const { _docId, ...data } = p; await addDoc(col, data); }
+    const currentIds = new Set(products.map(p => p._docId).filter(id => id));
+    for (const d of snap.docs) {
+      if (!currentIds.has(d.id)) {
+        await deleteDoc(d.ref);
+      }
+    }
   }
 
   async function saveAdmin() { await setDoc(doc(db, 'config', 'admin'), adminData); }
@@ -743,7 +763,6 @@
     window.open('https://wa.me/213561638339?text=' + encodeURIComponent('Bonjour Minuit Chic ! Je suis intéressée par : ' + nom), '_blank');
   }
 
-  // === NOUVELLES FONCTIONS POUR LA MODALE DE DÉTAILS ===
   let currentDetailProduct = null;
 
   function ouvrirDetail(index) {
@@ -788,7 +807,6 @@
       commanderProduit(currentDetailProduct.name);
     }
   }
-  // === FIN DES NOUVELLES FONCTIONS ===
 
   ['admin-overlay','login-overlay','forgot-overlay','detail-overlay'].forEach(id => {
     document.getElementById(id).addEventListener('click', function(e) {
