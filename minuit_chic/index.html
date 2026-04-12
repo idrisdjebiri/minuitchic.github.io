@@ -563,9 +563,28 @@
 
 
 <!-- ════════════════════════════════════
-     JAVASCRIPT
+     FIREBASE SDK
 ════════════════════════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, getDocs, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  /* ══════════════════════════════════════════════════
+     ⚠️  REMPLACE CES VALEURS PAR TES INFOS FIREBASE
+         (Firebase Console → Paramètres projet → Config)
+  ══════════════════════════════════════════════════ */
+  const firebaseConfig = {
+    apiKey:            "AIzaSyBQXnARMQ911wUOYHxx8_cntiAP0YOYpwM",
+    authDomain:        "minuitchic-2026.firebaseapp.com",
+    projectId:         "minuitchic-2026",
+    storageBucket:     "minuitchic-2026.firebasestorage.app",
+    messagingSenderId: "689722737862",
+    appId:             "1:689722737862:web:d878937d9bbfced4fc43c7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
   /* ─── ÉTAT GLOBAL ─── */
   let products       = [];
   let adminData      = null;
@@ -574,45 +593,51 @@
   let currentImgData = null;
   let setupTemp      = {};
 
-  /* ─── STOCKAGE PARTAGÉ (tous appareils) ─── */
-  async function storageGet(key) {
-    try {
-      if (window.storage) {
-        const r = await window.storage.get(key, true);
-        return r ? r.value : null;
-      }
-    } catch(e) {}
-    return localStorage.getItem(key);
-  }
-  async function storageSet(key, val) {
-    try {
-      if (window.storage) {
-        await window.storage.set(key, val, true);
-        return;
-      }
-    } catch(e) {}
-    localStorage.setItem(key, val);
+  /* ─── SAUVEGARDE FIREBASE ─── */
+  async function saveProducts() {
+    // Supprime tout puis réinsère (simple et fiable)
+    const col = collection(db, 'products');
+    const snap = await getDocs(col);
+    for (const d of snap.docs) await deleteDoc(d.ref);
+    for (const p of products) {
+      const { id, ...data } = p;
+      await addDoc(col, { ...data, id: id || Date.now() });
+    }
   }
 
-  async function saveProducts() {
-    await storageSet('mc_products', JSON.stringify(products));
-  }
   async function saveAdmin() {
-    await storageSet('mc_admin', JSON.stringify(adminData));
+    await setDoc(doc(db, 'config', 'admin'), adminData);
+  }
+
+  /* ─── ÉCOUTE EN TEMPS RÉEL DES PRODUITS ─── */
+  function ecouterProduits() {
+    onSnapshot(collection(db, 'products'), (snap) => {
+      products = snap.docs.map(d => ({ ...d.data(), _docId: d.id }));
+      // Trier par id décroissant (plus récent en premier)
+      products.sort((a, b) => (b.id || 0) - (a.id || 0));
+      renderGrid();
+      updateCount();
+      if (isLoggedIn) renderAdminList();
+    });
   }
 
   /* ─── INIT ─── */
   async function init() {
-    const rawProducts = await storageGet('mc_products');
-    const rawAdmin    = await storageGet('mc_admin');
-    if (rawProducts) { try { products = JSON.parse(rawProducts); } catch(e) { products = []; } }
-    if (rawAdmin)    { try { adminData = JSON.parse(rawAdmin);   } catch(e) { adminData = null; } }
-    if (!adminData) {
-      adminData = { username: 'admin', email: 'admin@minuitchic.com', pwd: btoa(unescape(encodeURIComponent('admin123'))) };
-      await saveAdmin();
+    // Charger admin depuis Firestore
+    try {
+      const adminSnap = await getDoc(doc(db, 'config', 'admin'));
+      if (adminSnap.exists()) {
+        adminData = adminSnap.data();
+      }
+    } catch(e) {
+      console.error('Erreur chargement admin:', e);
     }
-    renderGrid();
-    if (!rawAdmin) {
+
+    // Écouter les produits en temps réel
+    ecouterProduits();
+
+    // Si pas de compte admin → afficher setup
+    if (!adminData) {
       document.getElementById('setup-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -647,7 +672,7 @@
     setTimeout(() => document.getElementById('setup-pwd').focus(), 100);
   }
 
-  function setupFinal() {
+  async function setupFinal() {
     const p1 = document.getElementById('setup-pwd').value;
     const p2 = document.getElementById('setup-pwd2').value;
     const e  = document.getElementById('setup-err-3');
@@ -815,7 +840,6 @@
   }
 
   /* ─── PRODUITS ─── */
-  /* saveProducts et saveAdmin définis en haut comme fonctions async partagées */
   function updateCount()  { document.getElementById('count').textContent = products.length; }
 
   function renderGrid() {
@@ -877,8 +901,9 @@
     const desc  = document.getElementById('p-desc').value.trim();
     const badge = document.getElementById('p-badge').value;
     if (!name || !price) { alert('Merci de renseigner le nom et le prix.'); return; }
-    products.unshift({ name, price, cat, desc, badge, img: currentImgData, id: Date.now() });
-    await saveProducts(); renderGrid(); updateCount();
+    const newProd = { name, price, cat, desc, badge, img: currentImgData, id: Date.now() };
+    products.unshift(newProd);
+    await saveProducts();
     ['p-name','p-price','p-desc'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('p-badge').value = '';
     document.getElementById('img-preview').style.display = 'none';
@@ -892,7 +917,7 @@
   async function supprimerProduit(i) {
     if (!confirm('Supprimer cet article définitivement ?')) return;
     products.splice(i, 1);
-    await saveProducts(); renderGrid(); renderAdminList();
+    await saveProducts();
   }
 
   function previewImg(input) {
@@ -933,6 +958,28 @@
   function showAlert(el, msg) { el.textContent = msg; el.classList.add('show'); }
   function resetAlert(id) { const el = document.getElementById(id); if(el){ el.textContent=''; el.classList.remove('show'); } }
   function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  /* ─── RENDRE LES FONCTIONS ACCESSIBLES DEPUIS LE HTML (onclick=...) ─── */
+  window.ouvrirLogin        = ouvrirLogin;
+  window.fermerLogin        = fermerLogin;
+  window.loginAdmin         = loginAdmin;
+  window.ouvrirForgot       = ouvrirForgot;
+  window.fermerForgot       = fermerForgot;
+  window.verifierEmail      = verifierEmail;
+  window.reinitialiserMdp   = reinitialiserMdp;
+  window.fermerAdmin        = fermerAdmin;
+  window.switchTab          = switchTab;
+  window.sauvegarderCompte  = sauvegarderCompte;
+  window.ajouterProduit     = ajouterProduit;
+  window.supprimerProduit   = supprimerProduit;
+  window.previewImg         = previewImg;
+  window.commanderProduit   = commanderProduit;
+  window.togglePw           = togglePw;
+  window.setupGo            = setupGo;
+  window.setupStep1         = setupStep1;
+  window.setupStep2         = setupStep2;
+  window.setupFinal         = setupFinal;
+  window.deconnecter        = deconnecter;
 
   init();
 </script>
