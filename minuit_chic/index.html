@@ -2,157 +2,1347 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Minuit Chic — Boutique Luxe</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --noir: #0a0a0a; --or: #c9a96e; --or-clair: #e8d5b0; --creme: #f5f0e8; --blanc: #fefefe; --gris: #888; --rouge: #e05555; --vert: #5ebd8a; }
-  body { font-family: 'Jost', sans-serif; background: var(--noir); color: var(--blanc); min-height: 100vh; overflow-x: hidden; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(201,169,110,0.2); }
-  .logo-block { display: flex; flex-direction: column; align-items: flex-start; }
-  .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; letter-spacing: 0.25em; color: var(--or); text-transform: uppercase; }
-  .logo-tagline { font-size: 0.55rem; letter-spacing: 0.4em; color: var(--gris); text-transform: uppercase; margin-top: 1px; }
-  nav ul { list-style: none; display: flex; gap: 2.5rem; }
-  nav ul a { text-decoration: none; color: var(--creme); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; transition: color 0.3s; }
-  nav ul a:hover { color: var(--or); }
-  .nav-admin-btn { background: transparent; border: 0.5px solid var(--or); color: var(--or); padding: 0.5rem 1.2rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
-  .nav-admin-btn:hover { background: var(--or); color: var(--noir); }
-  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,169,110,0.08) 0%, transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #111008 50%, #0a0a0a 100%); }
-  .hero-ornament { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; border-radius: 50%; border: 0.5px solid rgba(201,169,110,0.08); z-index: 0; }
-  .hero-ornament::before { content: ''; position: absolute; inset: 40px; border-radius: 50%; border: 0.5px solid rgba(201,169,110,0.05); }
-  .hero-content { position: relative; z-index: 1; max-width: 700px; }
-  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.5em; color: var(--or); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; justify-content: center; }
-  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 40px; height: 0.5px; background: var(--or); opacity: 0.5; }
-  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 300; line-height: 1.1; color: var(--blanc); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
-  .hero h1 em { font-style: italic; color: var(--or); }
-  .hero-sub { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; margin-bottom: 3rem; font-weight: 200; }
-  .hero-cta { display: inline-block; padding: 1rem 3rem; border: 0.5px solid var(--or); color: var(--or); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; background: transparent; font-family: 'Jost', sans-serif; transition: all 0.4s; text-decoration: none; }
-  .hero-cta:hover { background: var(--or); color: var(--noir); }
-  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--gris); text-transform: uppercase; z-index: 1; }
-  .scroll-line { width: 0.5px; height: 40px; background: linear-gradient(to bottom, var(--or), transparent); animation: scrollAnim 2s ease-in-out infinite; }
-  @keyframes scrollAnim { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
-  .section { padding: 6rem 3rem; }
-  .section-header { text-align: center; margin-bottom: 4rem; }
-  .section-eyebrow { font-size: 0.55rem; letter-spacing: 0.45em; color: var(--or); text-transform: uppercase; margin-bottom: 1rem; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--blanc); letter-spacing: 0.03em; }
-  .section-divider { width: 60px; height: 0.5px; background: var(--or); margin: 1.5rem auto 0; opacity: 0.6; }
-  #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; max-width: 1400px; margin: 0 auto; }
-  .product-card { background: #111; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.4s; }
-  .product-card:hover { z-index: 2; transform: translateY(-4px); }
-  .product-img-wrap { aspect-ratio: 3/4; overflow: hidden; position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; }
-  .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-  .product-card:hover .product-img-wrap img { transform: scale(1.04); }
-  .product-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: rgba(201,169,110,0.3); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .product-img-placeholder svg { width: 48px; height: 48px; opacity: 0.3; }
-  .product-badge { position: absolute; top: 1rem; left: 1rem; background: var(--or); color: var(--noir); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 10px; font-weight: 500; }
-  .product-info { padding: 1.5rem; border-top: 0.5px solid rgba(201,169,110,0.1); background: #111; }
-  .product-cat { font-size: 0.5rem; letter-spacing: 0.3em; color: var(--or); text-transform: uppercase; margin-bottom: 0.5rem; }
-  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--blanc); margin-bottom: 0.5rem; line-height: 1.3; }
-  .product-desc { font-size: 0.7rem; color: var(--gris); line-height: 1.7; font-weight: 200; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .product-footer { display: flex; align-items: center; justify-content: space-between; }
-  .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--or); letter-spacing: 0.05em; }
-  .product-price .currency { font-size: 0.8rem; vertical-align: super; }
-  .product-buy-btn { background: transparent; border: 0.5px solid rgba(201,169,110,0.4); color: var(--or); padding: 0.5rem 1rem; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
-  .product-buy-btn:hover { background: var(--or); color: var(--noir); }
-  .empty-state { grid-column: 1/-1; text-align: center; padding: 6rem 2rem; color: var(--gris); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .empty-state p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: rgba(201,169,110,0.3); margin-bottom: 1rem; font-weight: 300; font-style: italic; }
-  .overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 2rem; }
-  .overlay.open { display: flex; }
-  .modal { background: #111; border: 0.5px solid rgba(201,169,110,0.3); width: 100%; max-width: 460px; padding: 2.5rem; position: relative; }
-  .modal-lg { max-width: 800px; max-height: 88vh; overflow-y: auto; }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid rgba(201,169,110,0.2); }
-  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--or); }
-  .modal-close { background: none; border: none; color: var(--gris); font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.3s; }
-  .modal-close:hover { color: var(--or); }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-label { display: block; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--or); text-transform: uppercase; margin-bottom: 0.5rem; }
-  .form-input, .form-select, .form-textarea { width: 100%; background: #1a1a1a; border: 0.5px solid rgba(201,169,110,0.2); color: var(--blanc); padding: 0.8rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.3s; -webkit-appearance: none; }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--or); }
-  .form-textarea { resize: vertical; min-height: 80px; }
-  .form-select { cursor: pointer; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-submit { width: 100%; background: var(--or); border: none; color: var(--noir); padding: 1rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; }
-  .form-submit:hover { background: var(--or-clair); }
-  .form-link { background: none; border: none; color: var(--or); font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; transition: color 0.3s; }
-  .form-link:hover { color: var(--or-clair); }
-  .password-wrap { position: relative; }
-  .password-wrap .form-input { padding-right: 3.5rem; }
-  .toggle-pw { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gris); cursor: pointer; font-size: 0.7rem; letter-spacing: 0.05em; font-family: 'Jost', sans-serif; transition: color 0.3s; }
-  .toggle-pw:hover { color: var(--or); }
-  .alert { padding: 0.8rem 1rem; font-size: 0.65rem; letter-spacing: 0.1em; margin-bottom: 1rem; display: none; line-height: 1.5; }
-  .alert.show { display: block; }
-  .alert-error   { background: rgba(224,85,85,0.1);   border: 0.5px solid rgba(224,85,85,0.4);   color: var(--rouge); }
-  .alert-success { background: rgba(94,189,138,0.1);  border: 0.5px solid rgba(94,189,138,0.4);  color: var(--vert); }
-  .login-logo { text-align: center; margin-bottom: 2rem; }
-  .login-logo .logo-name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; letter-spacing: 0.3em; color: var(--or); text-transform: uppercase; }
-  .login-logo .logo-sub  { display: block; font-size: 0.5rem; letter-spacing: 0.35em; color: var(--gris); text-transform: uppercase; margin-top: 4px; }
-  .login-divider { width: 40px; height: 0.5px; background: var(--or); margin: 1rem auto 2rem; opacity: 0.5; }
-  .login-attempts { font-size: 0.6rem; color: var(--rouge); text-align: center; margin-top: 0.5rem; display: none; }
-  .setup-step { display: none; }
-  .setup-step.active { display: block; }
-  .setup-progress { display: flex; gap: 4px; margin-bottom: 2rem; }
-  .setup-dot { flex: 1; height: 2px; background: rgba(201,169,110,0.2); transition: background 0.4s; }
-  .setup-dot.done { background: var(--or); }
-  .admin-tabs { display: flex; margin-bottom: 2rem; border-bottom: 0.5px solid rgba(201,169,110,0.15); }
-  .admin-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--gris); font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.7rem 1.2rem; cursor: pointer; transition: all 0.3s; margin-bottom: -1px; }
-  .admin-tab.active { color: var(--or); border-bottom-color: var(--or); }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .img-upload-area { border: 0.5px dashed rgba(201,169,110,0.3); padding: 1.5rem; text-align: center; cursor: pointer; transition: border-color 0.3s; background: #1a1a1a; }
-  .img-upload-area:hover { border-color: var(--or); }
-  .img-upload-area input { display: none; }
-  .img-upload-label { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gris); text-transform: uppercase; cursor: pointer; }
-  .img-preview { max-height: 120px; margin: 0.5rem auto 0; display: none; border: 0.5px solid rgba(201,169,110,0.2); }
-  .success-msg { display: none; background: rgba(94,189,138,0.1); border: 0.5px solid rgba(94,189,138,0.4); color: var(--vert); padding: 0.8rem 1rem; font-size: 0.65rem; letter-spacing: 0.1em; margin-top: 1rem; text-align: center; }
-  .admin-product-list { display: flex; flex-direction: column; gap: 1px; }
-  .admin-product-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #1a1a1a; border: 0.5px solid rgba(201,169,110,0.1); }
-  .admin-product-thumb { width: 50px; height: 60px; background: #222; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; overflow: hidden; }
-  .admin-product-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .admin-product-info { flex: 1; min-width: 0; }
-  .admin-product-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--blanc); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .admin-product-meta { font-size: 0.6rem; color: var(--gris); letter-spacing: 0.1em; }
-  .admin-product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--or); white-space: nowrap; }
-  .admin-product-del { background: none; border: 0.5px solid rgba(255,80,80,0.3); color: rgba(255,80,80,0.6); width: 28px; height: 28px; cursor: pointer; font-size: 0.7rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .admin-product-del:hover { background: rgba(255,80,80,0.1); color: #ff5050; border-color: #ff5050; }
-  .logout-btn { background: none; border: 0.5px solid rgba(255,80,80,0.3); color: rgba(255,80,80,0.6); padding: 0.5rem 1rem; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
-  .logout-btn:hover { background: rgba(255,80,80,0.1); color: #ff5050; border-color: #ff5050; }
-  footer { border-top: 0.5px solid rgba(201,169,110,0.15); padding: 3rem; text-align: center; background: #080808; }
-  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--or); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem; }
-  .footer-tagline { font-size: 0.55rem; letter-spacing: 0.35em; color: var(--gris); text-transform: uppercase; }
-  .footer-social { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; }
-  .footer-social a { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; text-decoration: none; transition: color 0.3s; }
-  .footer-social a:hover { color: var(--or); }
+  *, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    -webkit-tap-highlight-color: transparent;
+  }
   
-  /* Styles pour la modale de détails produit */
-  .detail-container { display: flex; flex-wrap: wrap; gap: 2.5rem; }
-  .detail-image { flex: 1; min-width: 220px; }
-  .detail-image-box { background: #1a1a1a; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; border: 0.5px solid rgba(201,169,110,0.15); }
-  .detail-image-box img { width: 100%; height: 100%; object-fit: cover; }
-  .detail-image-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: rgba(201,169,110,0.3); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; width: 100%; height: 100%; }
-  .detail-info { flex: 1.5; }
-  .detail-cat { font-size: 0.55rem; letter-spacing: 0.3em; color: var(--or); text-transform: uppercase; margin-bottom: 0.75rem; }
-  .detail-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--blanc); margin-bottom: 1rem; letter-spacing: 0.03em; line-height: 1.2; }
-  .detail-price { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--or); margin-bottom: 1.5rem; }
-  .detail-price .currency { font-size: 0.9rem; vertical-align: super; }
-  .detail-divider { width: 50px; height: 0.5px; background: var(--or); margin: 1rem 0; opacity: 0.5; }
-  .detail-section-title { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--or); text-transform: uppercase; margin-bottom: 0.75rem; }
-  .detail-desc { font-size: 0.85rem; color: var(--blanc); line-height: 1.7; font-weight: 300; }
-  .detail-badge { margin: 1rem 0; display: inline-block; background: var(--or); color: var(--noir); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 12px; font-weight: 500; border-radius: 2px; }
-  .detail-wa-btn { background: transparent; border: 0.5px solid var(--or); color: var(--or); padding: 0.9rem 2rem; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.4s; margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.75rem; }
-  .detail-wa-btn:hover { background: var(--or); color: var(--noir); }
+  :root {
+    --noir: #0a0a0a;
+    --or: #c9a96e;
+    --or-clair: #e8d5b0;
+    --creme: #f5f0e8;
+    --blanc: #fefefe;
+    --gris: #888;
+    --rouge: #e05555;
+    --vert: #5ebd8a;
+    
+    /* Espacements optimisés mobile */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --nav-height: 70px;
+  }
   
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    nav ul { display: none; }
-    .section { padding: 4rem 1.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .modal { padding: 1.5rem; }
-    .admin-tab { font-size: 0.55rem; padding: 0.6rem 0.8rem; }
-    .detail-container { gap: 1.5rem; }
-    .detail-name { font-size: 1.5rem; }
-    .detail-price { font-size: 1.4rem; }
+  body { 
+    font-family: 'Jost', sans-serif; 
+    background: var(--noir); 
+    color: var(--blanc); 
+    min-height: 100vh; 
+    overflow-x: hidden;
+    padding-top: var(--nav-height);
+  }
+  
+  /* Navigation repensée mobile-first */
+  nav { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    z-index: 100; 
+    height: var(--nav-height);
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 1.5rem;
+    padding-top: var(--safe-top);
+    background: rgba(10, 10, 10, 0.95); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(201, 169, 110, 0.15);
+  }
+  
+  .logo-block { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+  
+  .logo-name { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.4rem; 
+    font-weight: 300; 
+    letter-spacing: 0.2em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    line-height: 1.2;
+  }
+  
+  .logo-tagline { 
+    font-size: 0.45rem; 
+    letter-spacing: 0.3em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+  }
+  
+  /* Menu desktop */
+  .nav-desktop { 
+    display: none; 
+    list-style: none; 
+    gap: 2.5rem; 
+  }
+  
+  .nav-desktop a { 
+    text-decoration: none; 
+    color: var(--creme); 
+    font-size: 0.7rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    font-weight: 300; 
+    transition: color 0.3s; 
+  }
+  
+  .nav-desktop a:hover { 
+    color: var(--or); 
+  }
+  
+  /* Menu mobile hamburger */
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--or);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  
+  /* Menu mobile overlay */
+  .mobile-menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 2rem 4rem;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+  
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+  
+  .mobile-menu-links {
+    list-style: none;
+    flex: 1;
+  }
+  
+  .mobile-menu-links li {
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideIn 0.4s forwards;
+  }
+  
+  .mobile-menu.open .mobile-menu-links li:nth-child(1) { animation-delay: 0.1s; }
+  .mobile-menu.open .mobile-menu-links li:nth-child(2) { animation-delay: 0.2s; }
+  .mobile-menu.open .mobile-menu-links li:nth-child(3) { animation-delay: 0.3s; }
+  
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .mobile-menu-links a {
+    text-decoration: none;
+    color: var(--blanc);
+    font-size: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    display: block;
+    padding: 0.5rem 0;
+    transition: color 0.3s;
+  }
+  
+  .mobile-menu-links a:hover {
+    color: var(--or);
+  }
+  
+  .mobile-menu-footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 0.5px solid rgba(201, 169, 110, 0.2);
+  }
+  
+  .mobile-social {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .mobile-social a {
+    color: var(--gris);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  
+  .nav-admin-btn { 
+    background: transparent; 
+    border: 0.5px solid var(--or); 
+    color: var(--or); 
+    padding: 0.5rem 1rem; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    font-family: 'Jost', sans-serif; 
+    transition: all 0.3s;
+    border-radius: 0;
+  }
+  
+  .nav-admin-btn:hover { 
+    background: var(--or); 
+    color: var(--noir); 
+  }
+  
+  /* Hero optimisé mobile */
+  .hero { 
+    min-height: calc(100vh - var(--nav-height)); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    padding: 3rem 1.5rem 5rem; 
+    position: relative; 
+    overflow: hidden; 
+  }
+  
+  .hero-bg { 
+    position: absolute; 
+    inset: 0; 
+    z-index: 0; 
+    background: radial-gradient(circle at 50% 40%, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
+                linear-gradient(180deg, #0a0a0a 0%, #111008 50%, #0a0a0a 100%); 
+  }
+  
+  .hero-content { 
+    position: relative; 
+    z-index: 1; 
+    max-width: 100%; 
+    animation: fadeUp 0.8s ease-out;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero-eyebrow { 
+    font-size: 0.55rem; 
+    letter-spacing: 0.4em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 1.5rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 0.8rem; 
+    justify-content: center; 
+  }
+  
+  .hero-eyebrow::before, 
+  .hero-eyebrow::after { 
+    content: ''; 
+    width: 30px; 
+    height: 0.5px; 
+    background: var(--or); 
+    opacity: 0.5; 
+  }
+  
+  .hero h1 { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: clamp(2.8rem, 8vw, 4.5rem); 
+    font-weight: 300; 
+    line-height: 1.15; 
+    color: var(--blanc); 
+    margin-bottom: 1.2rem; 
+    letter-spacing: 0.03em; 
+  }
+  
+  .hero h1 em { 
+    font-style: italic; 
+    color: var(--or); 
+  }
+  
+  .hero-sub { 
+    font-size: 0.65rem; 
+    letter-spacing: 0.2em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+    margin-bottom: 2.5rem; 
+    font-weight: 200; 
+  }
+  
+  .hero-cta { 
+    display: inline-block; 
+    padding: 0.9rem 2.5rem; 
+    border: 0.5px solid var(--or); 
+    color: var(--or); 
+    font-size: 0.6rem; 
+    letter-spacing: 0.25em; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    background: transparent; 
+    font-family: 'Jost', sans-serif; 
+    transition: all 0.4s; 
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--or);
+    transition: left 0.4s;
+    z-index: -1;
+  }
+  
+  .hero-cta:hover {
+    color: var(--noir);
+  }
+  
+  .hero-cta:hover::before {
+    left: 0;
+  }
+  
+  /* Scroll hint amélioré */
+  .scroll-hint { 
+    position: absolute; 
+    bottom: 1.5rem; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+    font-size: 0.5rem; 
+    letter-spacing: 0.3em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards;
+  }
+  
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  
+  .scroll-line { 
+    width: 0.5px; 
+    height: 35px; 
+    background: linear-gradient(to bottom, var(--or), transparent); 
+    animation: scrollAnim 2s ease-in-out infinite; 
+  }
+  
+  @keyframes scrollAnim { 
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8); } 
+    50% { opacity: 1; transform: scaleY(1); } 
+  }
+  
+  /* Sections */
+  .section { 
+    padding: 4rem 1.2rem; 
+  }
+  
+  .section-header { 
+    text-align: center; 
+    margin-bottom: 3rem; 
+  }
+  
+  .section-eyebrow { 
+    font-size: 0.5rem; 
+    letter-spacing: 0.4em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 0.8rem; 
+  }
+  
+  .section-title { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: clamp(2rem, 6vw, 2.8rem); 
+    font-weight: 300; 
+    color: var(--blanc); 
+    letter-spacing: 0.03em; 
+  }
+  
+  .section-divider { 
+    width: 50px; 
+    height: 0.5px; 
+    background: var(--or); 
+    margin: 1.2rem auto 0; 
+    opacity: 0.6; 
+  }
+  
+  /* Grille produits optimisée mobile avec swipe hint */
+  #products-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 1.5rem; 
+    max-width: 500px; 
+    margin: 0 auto; 
+  }
+  
+  @media (min-width: 640px) {
+    #products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 1200px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    #products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .nav-desktop {
+      display: flex;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+    }
+  }
+  
+  .product-card { 
+    background: #111; 
+    position: relative; 
+    overflow: hidden; 
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 0.5px solid rgba(201, 169, 110, 0.1);
+    animation: cardFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes cardFadeIn {
+    to { opacity: 1; }
+  }
+  
+  .product-card:active {
+    transform: scale(0.98);
+  }
+  
+  @media (hover: hover) {
+    .product-card:hover { 
+      transform: translateY(-6px); 
+      border-color: rgba(201, 169, 110, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .product-img-wrap { 
+    aspect-ratio: 3/4; 
+    overflow: hidden; 
+    position: relative; 
+    background: #1a1a1a; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  .product-img-wrap img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+  }
+  
+  .product-card:hover .product-img-wrap img { 
+    transform: scale(1.05); 
+  }
+  
+  .product-img-placeholder { 
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 12px; 
+    color: rgba(201, 169, 110, 0.3); 
+    font-size: 0.55rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+  }
+  
+  .product-img-placeholder svg { 
+    width: 40px; 
+    height: 40px; 
+    opacity: 0.3; 
+  }
+  
+  .product-badge { 
+    position: absolute; 
+    top: 0.8rem; 
+    left: 0.8rem; 
+    background: var(--or); 
+    color: var(--noir); 
+    font-size: 0.45rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    padding: 3px 8px; 
+    font-weight: 500; 
+    z-index: 2;
+  }
+  
+  .product-info { 
+    padding: 1.2rem; 
+    border-top: 0.5px solid rgba(201, 169, 110, 0.1); 
+    background: #111; 
+  }
+  
+  .product-cat { 
+    font-size: 0.45rem; 
+    letter-spacing: 0.25em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 0.4rem; 
+  }
+  
+  .product-name { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.1rem; 
+    font-weight: 400; 
+    color: var(--blanc); 
+    margin-bottom: 0.4rem; 
+    line-height: 1.3; 
+  }
+  
+  .product-desc { 
+    font-size: 0.65rem; 
+    color: var(--gris); 
+    line-height: 1.6; 
+    font-weight: 200; 
+    margin-bottom: 0.8rem; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+  }
+  
+  .product-footer { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+  }
+  
+  .product-price { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.2rem; 
+    font-weight: 300; 
+    color: var(--or); 
+    letter-spacing: 0.05em; 
+  }
+  
+  .product-price .currency { 
+    font-size: 0.7rem; 
+    vertical-align: super; 
+  }
+  
+  .product-buy-btn { 
+    background: transparent; 
+    border: 0.5px solid rgba(201, 169, 110, 0.4); 
+    color: var(--or); 
+    padding: 0.4rem 0.8rem; 
+    font-size: 0.5rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    font-family: 'Jost', sans-serif; 
+    transition: all 0.3s; 
+  }
+  
+  .product-buy-btn:hover { 
+    background: var(--or); 
+    color: var(--noir); 
+  }
+  
+  /* Empty state */
+  .empty-state { 
+    grid-column: 1/-1; 
+    text-align: center; 
+    padding: 4rem 1.5rem; 
+    color: var(--gris); 
+    font-size: 0.65rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+  }
+  
+  .empty-state p { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.3rem; 
+    color: rgba(201, 169, 110, 0.3); 
+    margin-bottom: 0.8rem; 
+    font-weight: 300; 
+    font-style: italic; 
+  }
+  
+  /* About section */
+  #about {
+    background: #0d0d0d;
+    border-top: 0.5px solid rgba(201, 169, 110, 0.1);
+    border-bottom: 0.5px solid rgba(201, 169, 110, 0.1);
+  }
+  
+  /* Footer */
+  footer { 
+    border-top: 0.5px solid rgba(201, 169, 110, 0.15); 
+    padding: 2.5rem 1.5rem; 
+    text-align: center; 
+    background: #080808; 
+    padding-bottom: calc(2.5rem + var(--safe-bottom));
+  }
+  
+  .footer-logo { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.5rem; 
+    font-weight: 300; 
+    color: var(--or); 
+    letter-spacing: 0.25em; 
+    text-transform: uppercase; 
+    margin-bottom: 0.8rem; 
+  }
+  
+  .footer-tagline { 
+    font-size: 0.5rem; 
+    letter-spacing: 0.3em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+  }
+  
+  .footer-social { 
+    display: flex; 
+    gap: 1.5rem; 
+    justify-content: center; 
+    margin-top: 1.2rem; 
+  }
+  
+  .footer-social a { 
+    font-size: 0.5rem; 
+    letter-spacing: 0.2em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+    text-decoration: none; 
+    transition: color 0.3s; 
+  }
+  
+  .footer-social a:hover { 
+    color: var(--or); 
+  }
+  
+  /* Modales optimisées mobile */
+  .overlay { 
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    z-index: 200; 
+    background: rgba(0, 0, 0, 0.95); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    align-items: flex-end;
+    justify-content: center; 
+    padding: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .overlay {
+      align-items: center;
+      padding: 2rem;
+    }
+  }
+  
+  .overlay.open { 
+    display: flex; 
+  }
+  
+  .modal { 
+    background: #111; 
+    border: 0.5px solid rgba(201, 169, 110, 0.3); 
+    width: 100%; 
+    max-width: 100%;
+    max-height: 90vh;
+    padding: 1.5rem; 
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @media (min-width: 768px) {
+    .modal {
+      max-width: 460px;
+      border-radius: 0;
+      animation: fadeScale 0.3s ease-out;
+    }
+    
+    .modal-lg {
+      max-width: 800px;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .modal-lg { 
+    max-height: 88vh; 
+  }
+  
+  .modal-header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    margin-bottom: 1.5rem; 
+    padding-bottom: 1rem; 
+    border-bottom: 0.5px solid rgba(201, 169, 110, 0.2); 
+  }
+  
+  .modal-title { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.3rem; 
+    font-weight: 300; 
+    color: var(--or); 
+  }
+  
+  .modal-close { 
+    background: none; 
+    border: none; 
+    color: var(--gris); 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    line-height: 1; 
+    transition: color 0.3s;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-close:hover { 
+    color: var(--or); 
+  }
+  
+  /* Formulaires optimisés mobile */
+  .form-group { 
+    margin-bottom: 1.2rem; 
+  }
+  
+  .form-label { 
+    display: block; 
+    font-size: 0.55rem; 
+    letter-spacing: 0.2em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 0.5rem; 
+  }
+  
+  .form-input, 
+  .form-select, 
+  .form-textarea { 
+    width: 100%; 
+    background: #1a1a1a; 
+    border: 0.5px solid rgba(201, 169, 110, 0.2); 
+    color: var(--blanc); 
+    padding: 0.9rem 1rem; 
+    font-family: 'Jost', sans-serif; 
+    font-size: 16px;
+    outline: none; 
+    transition: border-color 0.3s; 
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  
+  .form-input:focus, 
+  .form-select:focus, 
+  .form-textarea:focus { 
+    border-color: var(--or); 
+  }
+  
+  .form-textarea { 
+    resize: vertical; 
+    min-height: 80px; 
+  }
+  
+  .form-select { 
+    cursor: pointer; 
+  }
+  
+  .form-row { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+  }
+  
+  @media (min-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .form-submit { 
+    width: 100%; 
+    background: var(--or); 
+    border: none; 
+    color: var(--noir); 
+    padding: 1rem; 
+    font-family: 'Jost', sans-serif; 
+    font-size: 0.7rem; 
+    letter-spacing: 0.25em; 
+    text-transform: uppercase; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+    margin-top: 0.5rem;
+    min-height: 48px;
+  }
+  
+  .form-submit:hover { 
+    background: var(--or-clair); 
+  }
+  
+  .form-link { 
+    background: none; 
+    border: none; 
+    color: var(--or); 
+    font-family: 'Jost', sans-serif; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.1em; 
+    cursor: pointer; 
+    text-decoration: underline; 
+    text-underline-offset: 3px; 
+    transition: color 0.3s; 
+  }
+  
+  .form-link:hover { 
+    color: var(--or-clair); 
+  }
+  
+  .password-wrap { 
+    position: relative; 
+  }
+  
+  .password-wrap .form-input { 
+    padding-right: 3.5rem; 
+  }
+  
+  .toggle-pw { 
+    position: absolute; 
+    right: 0.8rem; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: none; 
+    border: none; 
+    color: var(--gris); 
+    cursor: pointer; 
+    font-size: 0.65rem; 
+    letter-spacing: 0.05em; 
+    font-family: 'Jost', sans-serif; 
+    transition: color 0.3s; 
+  }
+  
+  .toggle-pw:hover { 
+    color: var(--or); 
+  }
+  
+  .alert { 
+    padding: 0.8rem 1rem; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.1em; 
+    margin-bottom: 1rem; 
+    display: none; 
+    line-height: 1.5; 
+  }
+  
+  .alert.show { 
+    display: block; 
+  }
+  
+  .alert-error { 
+    background: rgba(224, 85, 85, 0.1); 
+    border: 0.5px solid rgba(224, 85, 85, 0.4); 
+    color: var(--rouge); 
+  }
+  
+  .alert-success { 
+    background: rgba(94, 189, 138, 0.1); 
+    border: 0.5px solid rgba(94, 189, 138, 0.4); 
+    color: var(--vert); 
+  }
+  
+  /* Login logo */
+  .login-logo { 
+    text-align: center; 
+    margin-bottom: 1.5rem; 
+  }
+  
+  .login-logo .logo-name { 
+    display: block; 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.6rem; 
+    font-weight: 300; 
+    letter-spacing: 0.25em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+  }
+  
+  .login-logo .logo-sub { 
+    display: block; 
+    font-size: 0.45rem; 
+    letter-spacing: 0.3em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+    margin-top: 4px; 
+  }
+  
+  .login-divider { 
+    width: 40px; 
+    height: 0.5px; 
+    background: var(--or); 
+    margin: 0.8rem auto 1.5rem; 
+    opacity: 0.5; 
+  }
+  
+  .login-attempts { 
+    font-size: 0.55rem; 
+    color: var(--rouge); 
+    text-align: center; 
+    margin-top: 0.5rem; 
+    display: none; 
+  }
+  
+  /* Setup steps */
+  .setup-step { 
+    display: none; 
+  }
+  
+  .setup-step.active { 
+    display: block; 
+  }
+  
+  .setup-progress { 
+    display: flex; 
+    gap: 4px; 
+    margin-bottom: 1.5rem; 
+  }
+  
+  .setup-dot { 
+    flex: 1; 
+    height: 2px; 
+    background: rgba(201, 169, 110, 0.2); 
+    transition: background 0.4s; 
+  }
+  
+  .setup-dot.done { 
+    background: var(--or); 
+  }
+  
+  /* Admin tabs */
+  .admin-tabs { 
+    display: flex; 
+    margin-bottom: 1.5rem; 
+    border-bottom: 0.5px solid rgba(201, 169, 110, 0.15);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .admin-tab { 
+    background: none; 
+    border: none; 
+    border-bottom: 2px solid transparent; 
+    color: var(--gris); 
+    font-family: 'Jost', sans-serif; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    padding: 0.7rem 1rem; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+    margin-bottom: -1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .admin-tab.active { 
+    color: var(--or); 
+    border-bottom-color: var(--or); 
+  }
+  
+  .tab-content { 
+    display: none; 
+  }
+  
+  .tab-content.active { 
+    display: block; 
+  }
+  
+  /* Upload image */
+  .img-upload-area { 
+    border: 0.5px dashed rgba(201, 169, 110, 0.3); 
+    padding: 1.5rem; 
+    text-align: center; 
+    cursor: pointer; 
+    transition: border-color 0.3s; 
+    background: #1a1a1a; 
+  }
+  
+  .img-upload-area:hover { 
+    border-color: var(--or); 
+  }
+  
+  .img-upload-area input { 
+    display: none; 
+  }
+  
+  .img-upload-label { 
+    font-size: 0.6rem; 
+    letter-spacing: 0.15em; 
+    color: var(--gris); 
+    text-transform: uppercase; 
+    cursor: pointer; 
+  }
+  
+  .img-preview { 
+    max-height: 100px; 
+    margin: 0.5rem auto 0; 
+    display: none; 
+    border: 0.5px solid rgba(201, 169, 110, 0.2); 
+  }
+  
+  .success-msg { 
+    display: none; 
+    background: rgba(94, 189, 138, 0.1); 
+    border: 0.5px solid rgba(94, 189, 138, 0.4); 
+    color: var(--vert); 
+    padding: 0.8rem 1rem; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.1em; 
+    margin-top: 1rem; 
+    text-align: center; 
+  }
+  
+  /* Admin product list */
+  .admin-product-list { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1px; 
+  }
+  
+  .admin-product-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.8rem; 
+    padding: 0.8rem; 
+    background: #1a1a1a; 
+    border: 0.5px solid rgba(201, 169, 110, 0.1); 
+  }
+  
+  .admin-product-thumb { 
+    width: 45px; 
+    height: 55px; 
+    background: #222; 
+    flex-shrink: 0; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1rem; 
+    overflow: hidden; 
+  }
+  
+  .admin-product-thumb img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+  
+  .admin-product-info { 
+    flex: 1; 
+    min-width: 0; 
+  }
+  
+  .admin-product-name { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 0.9rem; 
+    color: var(--blanc); 
+    margin-bottom: 2px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+  }
+  
+  .admin-product-meta { 
+    font-size: 0.5rem; 
+    color: var(--gris); 
+    letter-spacing: 0.1em; 
+  }
+  
+  .admin-product-price { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1rem; 
+    color: var(--or); 
+    white-space: nowrap; 
+  }
+  
+  .admin-product-del { 
+    background: none; 
+    border: 0.5px solid rgba(255, 80, 80, 0.3); 
+    color: rgba(255, 80, 80, 0.6); 
+    width: 32px; 
+    height: 32px; 
+    cursor: pointer; 
+    font-size: 0.7rem; 
+    transition: all 0.3s; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0; 
+  }
+  
+  .admin-product-del:hover { 
+    background: rgba(255, 80, 80, 0.1); 
+    color: #ff5050; 
+    border-color: #ff5050; 
+  }
+  
+  .logout-btn { 
+    background: none; 
+    border: 0.5px solid rgba(255, 80, 80, 0.3); 
+    color: rgba(255, 80, 80, 0.6); 
+    padding: 0.5rem 1rem; 
+    font-size: 0.55rem; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    font-family: 'Jost', sans-serif; 
+    transition: all 0.3s; 
+  }
+  
+  .logout-btn:hover { 
+    background: rgba(255, 80, 80, 0.1); 
+    color: #ff5050; 
+    border-color: #ff5050; 
+  }
+  
+  /* Détail produit */
+  .detail-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+  }
+  
+  @media (min-width: 640px) {
+    .detail-container {
+      flex-direction: row;
+      gap: 2rem;
+    }
+  }
+  
+  .detail-image { 
+    flex: 1; 
+    min-width: 0; 
+  }
+  
+  .detail-image-box { 
+    background: #1a1a1a; 
+    overflow: hidden; 
+    aspect-ratio: 3/4; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: 0.5px solid rgba(201, 169, 110, 0.15); 
+  }
+  
+  .detail-image-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+  
+  .detail-image-placeholder { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 12px; 
+    color: rgba(201, 169, 110, 0.3); 
+    font-size: 0.6rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    width: 100%; 
+    height: 100%; 
+  }
+  
+  .detail-info { 
+    flex: 1.5; 
+  }
+  
+  .detail-cat { 
+    font-size: 0.5rem; 
+    letter-spacing: 0.3em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 0.5rem; 
+  }
+  
+  .detail-name { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.8rem; 
+    font-weight: 300; 
+    color: var(--blanc); 
+    margin-bottom: 0.8rem; 
+    letter-spacing: 0.03em; 
+    line-height: 1.2; 
+  }
+  
+  .detail-price { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.6rem; 
+    font-weight: 300; 
+    color: var(--or); 
+    margin-bottom: 1.2rem; 
+  }
+  
+  .detail-price .currency { 
+    font-size: 0.8rem; 
+    vertical-align: super; 
+  }
+  
+  .detail-divider { 
+    width: 50px; 
+    height: 0.5px; 
+    background: var(--or); 
+    margin: 0.8rem 0; 
+    opacity: 0.5; 
+  }
+  
+  .detail-section-title { 
+    font-size: 0.5rem; 
+    letter-spacing: 0.2em; 
+    color: var(--or); 
+    text-transform: uppercase; 
+    margin-bottom: 0.6rem; 
+  }
+  
+  .detail-desc { 
+    font-size: 0.8rem; 
+    color: var(--blanc); 
+    line-height: 1.7; 
+    font-weight: 300; 
+  }
+  
+  .detail-badge { 
+    margin: 0.8rem 0; 
+    display: inline-block; 
+    background: var(--or); 
+    color: var(--noir); 
+    font-size: 0.45rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    padding: 3px 10px; 
+    font-weight: 500; 
+  }
+  
+  .detail-wa-btn { 
+    background: transparent; 
+    border: 0.5px solid var(--or); 
+    color: var(--or); 
+    padding: 0.8rem 1.5rem; 
+    font-size: 0.6rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    font-family: 'Jost', sans-serif; 
+    transition: all 0.4s; 
+    margin-top: 1.2rem; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+    width: 100%;
+    justify-content: center;
+  }
+  
+  @media (min-width: 480px) {
+    .detail-wa-btn {
+      width: auto;
+    }
+  }
+  
+  .detail-wa-btn:hover { 
+    background: var(--or); 
+    color: var(--noir); 
   }
 </style>
 </head>
@@ -163,24 +1353,54 @@
     <span class="logo-name">Minuit Chic</span>
     <span class="logo-tagline">Haute Mode · Algérie</span>
   </div>
-  <ul>
+  
+  <!-- Menu desktop -->
+  <ul class="nav-desktop">
     <li><a href="#collection">Collection</a></li>
     <li><a href="#about">Marque</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-admin-btn" onclick="ouvrirLogin()">⚙ Admin</button>
+  
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <button class="nav-admin-btn" onclick="ouvrirLogin()">⚙ Admin</button>
+    
+    <!-- Bouton hamburger mobile -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- Menu mobile -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="#collection" onclick="closeMobileMenu()">Collection</a></li>
+    <li><a href="#about" onclick="closeMobileMenu()">Marque</a></li>
+    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+  </ul>
+  <div class="mobile-menu-footer">
+    <div class="mobile-social">
+      <a href="https://www.instagram.com/minuit_chic_" target="_blank">Instagram</a>
+      <a href="https://wa.me/213561538339" target="_blank">WhatsApp</a>
+    </div>
+    <p style="font-size: 0.45rem; color: var(--gris); letter-spacing: 0.2em;">© 2025 Minuit Chic</p>
+  </div>
+</div>
 
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-ornament"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Nouvelle Collection</div>
     <h1>L'élégance<br>à l'état <em>pur</em></h1>
     <p class="hero-sub">Mode · Accessoires · Art de vivre</p>
     <a href="#collection" class="hero-cta">Découvrir la collection</a>
   </div>
-  <div class="scroll-hint"><div class="scroll-line"></div>Défiler</div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Défiler
+  </div>
 </section>
 
 <section class="section" id="collection">
@@ -190,18 +1410,21 @@
     <div class="section-divider"></div>
   </div>
   <div id="products-grid">
-    <div class="empty-state"><p>La vitrine vous attend</p><span>Ajoutez vos premiers articles via le panneau Admin</span></div>
+    <div class="empty-state">
+      <p>La vitrine vous attend</p>
+      <span>Ajoutez vos premiers articles via le panneau Admin</span>
+    </div>
   </div>
 </section>
 
-<section class="section" id="about" style="background:#0d0d0d; border-top:0.5px solid rgba(201,169,110,0.1); border-bottom:0.5px solid rgba(201,169,110,0.1);">
-  <div style="max-width:700px; margin:0 auto; text-align:center;">
+<section class="section" id="about">
+  <div style="max-width: 650px; margin: 0 auto; text-align: center;">
     <p class="section-eyebrow">Notre Âme</p>
-    <h2 class="section-title" style="margin-bottom:1.5rem;">Minuit Chic</h2>
-    <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:300; color:rgba(245,240,232,0.7); line-height:1.9; font-style:italic;">
+    <h2 class="section-title" style="margin-bottom: 1.5rem;">Minuit Chic</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; color: rgba(245, 240, 232, 0.7); line-height: 1.9; font-style: italic;">
       Née dans l'élégance de la nuit, Minuit Chic propose des pièces soigneusement sélectionnées pour la femme qui sait ce qu'elle veut — du raffinement, de l'exclusivité et du caractère.
     </p>
-    <div class="section-divider" style="margin-top:2rem;"></div>
+    <div class="section-divider" style="margin-top: 2rem;"></div>
   </div>
 </section>
 
@@ -210,10 +1433,10 @@
   <p class="footer-tagline">L'élégance au bout des doigts</p>
   <div class="footer-social">
     <a href="https://www.instagram.com/minuit_chic_" target="_blank">Instagram</a>
-    <span style="color:rgba(201,169,110,0.2)">·</span>
+    <span style="color: rgba(201, 169, 110, 0.2);">·</span>
     <a href="https://wa.me/213561538339" target="_blank">WhatsApp</a>
   </div>
-  <p style="margin-top:2rem; font-size:0.5rem; letter-spacing:0.2em; color:rgba(136,136,136,0.4); text-transform:uppercase;">© 2025 Minuit Chic · Tous droits réservés</p>
+  <p style="margin-top: 1.5rem; font-size: 0.45rem; letter-spacing: 0.2em; color: rgba(136, 136, 136, 0.4); text-transform: uppercase;">© 2025 Minuit Chic · Tous droits réservés</p>
 </footer>
 
 <!-- OVERLAY 1 — SETUP -->
@@ -230,7 +1453,7 @@
       <div class="setup-dot" id="dot-3"></div>
     </div>
     <div class="setup-step active" id="setup-step-1">
-      <p style="font-size:0.62rem;letter-spacing:0.12em;color:var(--gris);margin-bottom:1.5rem;line-height:1.6;">Étape 1 / 3 — Choisissez votre identifiant de connexion.</p>
+      <p style="font-size: 0.6rem; letter-spacing: 0.12em; color: var(--gris); margin-bottom: 1.5rem; line-height: 1.6;">Étape 1 / 3 — Choisissez votre identifiant de connexion.</p>
       <div class="form-group">
         <label class="form-label">Nom d'utilisateur</label>
         <input type="text" class="form-input" id="setup-username" placeholder="ex: minuitchic_admin" autocomplete="off">
@@ -239,19 +1462,19 @@
       <button class="form-submit" onclick="setupStep1()">Suivant →</button>
     </div>
     <div class="setup-step" id="setup-step-2">
-      <p style="font-size:0.62rem;letter-spacing:0.12em;color:var(--gris);margin-bottom:1.5rem;line-height:1.6;">Étape 2 / 3 — Email de récupération.</p>
+      <p style="font-size: 0.6rem; letter-spacing: 0.12em; color: var(--gris); margin-bottom: 1.5rem; line-height: 1.6;">Étape 2 / 3 — Email de récupération.</p>
       <div class="form-group">
         <label class="form-label">Adresse email admin</label>
         <input type="email" class="form-input" id="setup-email" placeholder="votre@email.com" autocomplete="off">
       </div>
       <div class="alert alert-error" id="setup-err-2"></div>
-      <div style="display:flex;gap:0.5rem;">
-        <button class="form-submit" style="background:transparent;border:0.5px solid var(--or);color:var(--or);flex:0 0 auto;width:auto;padding:1rem 1.2rem;" onclick="setupGo(1)">← Retour</button>
-        <button class="form-submit" style="flex:1;" onclick="setupStep2()">Suivant →</button>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="form-submit" style="background: transparent; border: 0.5px solid var(--or); color: var(--or); flex: 0 0 auto; width: auto; padding: 1rem 1.2rem;" onclick="setupGo(1)">← Retour</button>
+        <button class="form-submit" style="flex: 1;" onclick="setupStep2()">Suivant →</button>
       </div>
     </div>
     <div class="setup-step" id="setup-step-3">
-      <p style="font-size:0.62rem;letter-spacing:0.12em;color:var(--gris);margin-bottom:1.5rem;line-height:1.6;">Étape 3 / 3 — Créez votre mot de passe.</p>
+      <p style="font-size: 0.6rem; letter-spacing: 0.12em; color: var(--gris); margin-bottom: 1.5rem; line-height: 1.6;">Étape 3 / 3 — Créez votre mot de passe.</p>
       <div class="form-group">
         <label class="form-label">Mot de passe</label>
         <div class="password-wrap">
@@ -267,9 +1490,9 @@
         </div>
       </div>
       <div class="alert alert-error" id="setup-err-3"></div>
-      <div style="display:flex;gap:0.5rem;">
-        <button class="form-submit" style="background:transparent;border:0.5px solid var(--or);color:var(--or);flex:0 0 auto;width:auto;padding:1rem 1.2rem;" onclick="setupGo(2)">← Retour</button>
-        <button class="form-submit" style="flex:1;" onclick="setupFinal()">✓ Créer mon compte</button>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="form-submit" style="background: transparent; border: 0.5px solid var(--or); color: var(--or); flex: 0 0 auto; width: auto; padding: 1rem 1.2rem;" onclick="setupGo(2)">← Retour</button>
+        <button class="form-submit" style="flex: 1;" onclick="setupFinal()">✓ Créer mon compte</button>
       </div>
     </div>
   </div>
@@ -298,8 +1521,8 @@
     </div>
     <div class="login-attempts" id="login-attempts"></div>
     <button class="form-submit" onclick="loginAdmin()">Connexion</button>
-    <div style="text-align:center;margin-top:1.5rem;"><button class="form-link" onclick="ouvrirForgot()">Mot de passe oublié ?</button></div>
-    <div style="text-align:center;margin-top:0.5rem;"><button class="form-link" onclick="fermerLogin()" style="color:var(--gris);">Annuler</button></div>
+    <div style="text-align: center; margin-top: 1.5rem;"><button class="form-link" onclick="ouvrirForgot()">Mot de passe oublié ?</button></div>
+    <div style="text-align: center; margin-top: 0.5rem;"><button class="form-link" onclick="fermerLogin()" style="color: var(--gris);">Annuler</button></div>
   </div>
 </div>
 
@@ -311,17 +1534,17 @@
       <button class="modal-close" onclick="fermerForgot()">✕</button>
     </div>
     <div id="forgot-step-a">
-      <p style="font-size:0.7rem;color:var(--gris);line-height:1.7;margin-bottom:1.5rem;">Entrez l'email enregistré lors de la création du compte.</p>
+      <p style="font-size: 0.65rem; color: var(--gris); line-height: 1.7; margin-bottom: 1.5rem;">Entrez l'email enregistré lors de la création du compte.</p>
       <div class="form-group">
         <label class="form-label">Email de récupération</label>
         <input type="email" class="form-input" id="forgot-email" placeholder="votre@email.com">
       </div>
       <div class="alert alert-error" id="forgot-err-a"></div>
       <button class="form-submit" onclick="verifierEmail()">Vérifier l'email</button>
-      <div style="text-align:center;margin-top:1rem;"><button class="form-link" onclick="fermerForgot();setTimeout(ouvrirLogin,200);" style="color:var(--gris);">← Retour au login</button></div>
+      <div style="text-align: center; margin-top: 1rem;"><button class="form-link" onclick="fermerForgot(); setTimeout(ouvrirLogin, 200);" style="color: var(--gris);">← Retour au login</button></div>
     </div>
-    <div id="forgot-step-b" style="display:none;">
-      <div class="alert alert-success show" style="margin-bottom:1.5rem;">✓ Email reconnu ! Choisissez un nouveau mot de passe.</div>
+    <div id="forgot-step-b" style="display: none;">
+      <div class="alert alert-success show" style="margin-bottom: 1.5rem;">✓ Email reconnu ! Choisissez un nouveau mot de passe.</div>
       <div class="form-group">
         <label class="form-label">Nouveau mot de passe</label>
         <div class="password-wrap">
@@ -346,14 +1569,15 @@
 <div class="overlay" id="admin-overlay">
   <div class="modal modal-lg">
     <div class="modal-header">
-      <span class="modal-title">Administration — <span id="admin-username-display" style="font-size:0.9rem;opacity:0.7;"></span></span>
+      <span class="modal-title">Administration — <span id="admin-username-display" style="font-size: 0.85rem; opacity: 0.7;"></span></span>
       <button class="modal-close" onclick="fermerAdmin()">✕</button>
     </div>
     <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchTab('add',this)">+ Ajouter</button>
-      <button class="admin-tab" onclick="switchTab('list',this)">Articles (<span id="count">0</span>)</button>
-      <button class="admin-tab" onclick="switchTab('settings',this)">⚙ Mon Compte</button>
+      <button class="admin-tab active" onclick="switchTab('add', this)">+ Ajouter</button>
+      <button class="admin-tab" onclick="switchTab('list', this)">Articles (<span id="count">0</span>)</button>
+      <button class="admin-tab" onclick="switchTab('settings', this)">⚙ Mon Compte</button>
     </div>
+    
     <div class="tab-content active" id="tab-add">
       <div class="form-group">
         <label class="form-label">Photo du produit</label>
@@ -403,11 +1627,13 @@
       <button class="form-submit" onclick="ajouterProduit()">✓ Publier l'article</button>
       <div class="success-msg" id="success-msg">✓ Article ajouté avec succès !</div>
     </div>
+    
     <div class="tab-content" id="tab-list">
       <div class="admin-product-list" id="admin-list"></div>
     </div>
+    
     <div class="tab-content" id="tab-settings">
-      <p style="font-size:0.7rem;color:var(--gris);margin-bottom:1.5rem;line-height:1.7;">Modifiez vos identifiants. Laissez vide pour ne pas changer. Le mot de passe actuel est toujours requis.</p>
+      <p style="font-size: 0.65rem; color: var(--gris); margin-bottom: 1.5rem; line-height: 1.7;">Modifiez vos identifiants. Laissez vide pour ne pas changer. Le mot de passe actuel est toujours requis.</p>
       <div class="alert alert-error" id="settings-err"></div>
       <div class="alert alert-success" id="settings-ok"></div>
       <div class="form-group"><label class="form-label">Nouveau username</label><input type="text" class="form-input" id="new-username" placeholder="Laisser vide = pas de changement"></div>
@@ -426,7 +1652,7 @@
           <button class="toggle-pw" type="button" onclick="togglePw('settings-pwd2',this)">voir</button>
         </div>
       </div>
-      <div class="form-group" style="margin-top:1.5rem;padding-top:1.5rem;border-top:0.5px solid rgba(201,169,110,0.15);">
+      <div class="form-group" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 0.5px solid rgba(201, 169, 110, 0.15);">
         <label class="form-label">Mot de passe actuel * (requis)</label>
         <div class="password-wrap">
           <input type="password" class="form-input" id="settings-current-pwd" placeholder="Votre mot de passe actuel">
@@ -434,12 +1660,12 @@
         </div>
       </div>
       <button class="form-submit" onclick="sauvegarderCompte()">✓ Sauvegarder</button>
-      <div style="margin-top:2rem;text-align:right;"><button class="logout-btn" onclick="deconnecter()">⏻ Déconnexion</button></div>
+      <div style="margin-top: 2rem; text-align: right;"><button class="logout-btn" onclick="deconnecter()">⏻ Déconnexion</button></div>
     </div>
   </div>
 </div>
 
-<!-- OVERLAY 5 — DÉTAILS PRODUIT (MODALE LUXE) -->
+<!-- OVERLAY 5 — DÉTAILS PRODUIT -->
 <div class="overlay" id="detail-overlay">
   <div class="modal modal-lg">
     <div class="modal-header">
@@ -453,7 +1679,7 @@
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
             <span>Photo à venir</span>
           </div>
-          <img id="detail-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;">
+          <img id="detail-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
         </div>
       </div>
       <div class="detail-info">
@@ -475,18 +1701,35 @@
   import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, getDocs, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey:            "AIzaSyBQXnARMQ911wUOYHxx8_cntiAP0YOYpwM",
-    authDomain:        "minuitchic-2026.firebaseapp.com",
-    projectId:         "minuitchic-2026",
-    storageBucket:     "minuitchic-2026.firebasestorage.app",
+    apiKey: "AIzaSyBQXnARMQ911wUOYHxx8_cntiAP0YOYpwM",
+    authDomain: "minuitchic-2026.firebaseapp.com",
+    projectId: "minuitchic-2026",
+    storageBucket: "minuitchic-2026.firebasestorage.app",
     messagingSenderId: "689722737862",
-    appId:             "1:689722737862:web:d878937d9bbfced4fc43c7"
+    appId: "1:689722737862:web:d878937d9bbfced4fc43c7"
   };
 
   const app = initializeApp(firebaseConfig);
-  const db  = getFirestore(app);
+  const db = getFirestore(app);
 
   let products = [], adminData = null, isLoggedIn = false, loginTries = 0, currentImgData = null, setupTemp = {};
+
+  // Fonctions menu mobile
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('mobileMenuBtn');
+    menu.classList.toggle('open');
+    btn.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+  
+  function closeMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('mobileMenuBtn');
+    menu.classList.remove('open');
+    btn.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
   async function saveProducts() {
     const col = collection(db, 'products');
@@ -548,7 +1791,7 @@
 
   function setupStep2() {
     const em = document.getElementById('setup-email').value.trim();
-    const e  = document.getElementById('setup-err-2');
+    const e = document.getElementById('setup-err-2');
     if (!isValidEmail(em)) { showAlert(e, 'Email invalide.'); return; }
     e.classList.remove('show'); setupTemp.email = em; setupGo(3);
     setTimeout(() => document.getElementById('setup-pwd').focus(), 100);
@@ -557,9 +1800,9 @@
   async function setupFinal() {
     const p1 = document.getElementById('setup-pwd').value;
     const p2 = document.getElementById('setup-pwd2').value;
-    const e  = document.getElementById('setup-err-3');
+    const e = document.getElementById('setup-err-3');
     if (p1.length < 6) { showAlert(e, 'Minimum 6 caractères.'); return; }
-    if (p1 !== p2)     { showAlert(e, 'Les mots de passe ne correspondent pas.'); return; }
+    if (p1 !== p2) { showAlert(e, 'Les mots de passe ne correspondent pas.'); return; }
     adminData = { username: setupTemp.username, email: setupTemp.email, pwd: btoa(unescape(encodeURIComponent(p1))) };
     await saveAdmin();
     document.getElementById('setup-overlay').classList.remove('open');
@@ -578,7 +1821,10 @@
     setTimeout(() => document.getElementById('login-username').focus(), 150);
   }
 
-  function fermerLogin() { document.getElementById('login-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function fermerLogin() { 
+    document.getElementById('login-overlay').classList.remove('open'); 
+    document.body.style.overflow = ''; 
+  }
 
   function loginAdmin() {
     const u = document.getElementById('login-username').value.trim();
@@ -610,10 +1856,13 @@
     setTimeout(() => document.getElementById('forgot-email').focus(), 150);
   }
 
-  function fermerForgot() { document.getElementById('forgot-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function fermerForgot() { 
+    document.getElementById('forgot-overlay').classList.remove('open'); 
+    document.body.style.overflow = ''; 
+  }
 
   function verifierEmail() {
-    const em  = document.getElementById('forgot-email').value.trim();
+    const em = document.getElementById('forgot-email').value.trim();
     const err = document.getElementById('forgot-err-a');
     if (!adminData) { showAlert(err, 'Aucun compte configuré.'); return; }
     if (em.toLowerCase() === adminData.email.toLowerCase()) {
@@ -629,7 +1878,7 @@
     const p2 = document.getElementById('new-pwd2').value;
     const err = document.getElementById('forgot-err-b');
     if (p1.length < 6) { showAlert(err, 'Minimum 6 caractères.'); return; }
-    if (p1 !== p2)     { showAlert(err, 'Les mots de passe ne correspondent pas.'); return; }
+    if (p1 !== p2) { showAlert(err, 'Les mots de passe ne correspondent pas.'); return; }
     adminData.pwd = btoa(unescape(encodeURIComponent(p1)));
     await saveAdmin(); fermerForgot();
     setTimeout(() => { ouvrirLogin(); setTimeout(() => showAlert(document.getElementById('login-ok'), '✓ Mot de passe réinitialisé !'), 200); }, 200);
@@ -638,13 +1887,16 @@
   function ouvrirAdmin() {
     document.getElementById('admin-username-display').textContent = adminData.username;
     renderAdminList(); updateCount();
-    document.querySelectorAll('.admin-tab').forEach((t,i) => t.classList.toggle('active', i===0));
-    document.querySelectorAll('.tab-content').forEach((t,i) => t.classList.toggle('active', i===0));
+    document.querySelectorAll('.admin-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    document.querySelectorAll('.tab-content').forEach((t, i) => t.classList.toggle('active', i === 0));
     document.getElementById('admin-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  function fermerAdmin() { document.getElementById('admin-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function fermerAdmin() { 
+    document.getElementById('admin-overlay').classList.remove('open'); 
+    document.body.style.overflow = ''; 
+  }
 
   function switchTab(tab, btn) {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -656,27 +1908,27 @@
   }
 
   function prefillSettings() {
-    ['new-username','new-email','settings-pwd','settings-pwd2','settings-current-pwd'].forEach(id => document.getElementById(id).value = '');
+    ['new-username', 'new-email', 'settings-pwd', 'settings-pwd2', 'settings-current-pwd'].forEach(id => document.getElementById(id).value = '');
     resetAlert('settings-err'); resetAlert('settings-ok');
   }
 
   async function sauvegarderCompte() {
-    const newU  = document.getElementById('new-username').value.trim();
+    const newU = document.getElementById('new-username').value.trim();
     const newEm = document.getElementById('new-email').value.trim();
-    const newP  = document.getElementById('settings-pwd').value;
+    const newP = document.getElementById('settings-pwd').value;
     const newP2 = document.getElementById('settings-pwd2').value;
-    const curP  = document.getElementById('settings-current-pwd').value;
-    const err   = document.getElementById('settings-err');
-    const ok    = document.getElementById('settings-ok');
+    const curP = document.getElementById('settings-current-pwd').value;
+    const err = document.getElementById('settings-err');
+    const ok = document.getElementById('settings-ok');
     resetAlert('settings-err'); resetAlert('settings-ok');
     if (btoa(unescape(encodeURIComponent(curP))) !== adminData.pwd) { showAlert(err, 'Mot de passe actuel incorrect.'); return; }
     if (newU && newU.length < 3) { showAlert(err, 'Username trop court.'); return; }
     if (newU && /\s/.test(newU)) { showAlert(err, 'Username sans espaces.'); return; }
     if (newEm && !isValidEmail(newEm)) { showAlert(err, 'Email invalide.'); return; }
     if (newP) { if (newP.length < 6) { showAlert(err, 'Mot de passe trop court.'); return; } if (newP !== newP2) { showAlert(err, 'Les mots de passe ne correspondent pas.'); return; } }
-    if (newU)  { adminData.username = newU; document.getElementById('admin-username-display').textContent = newU; }
+    if (newU) { adminData.username = newU; document.getElementById('admin-username-display').textContent = newU; }
     if (newEm) adminData.email = newEm;
-    if (newP)  adminData.pwd = btoa(unescape(encodeURIComponent(newP)));
+    if (newP) adminData.pwd = btoa(unescape(encodeURIComponent(newP)));
     await saveAdmin();
     showAlert(ok, '✓ Compte mis à jour !'); prefillSettings();
   }
@@ -685,9 +1937,12 @@
 
   function renderGrid() {
     const grid = document.getElementById('products-grid');
-    if (!products.length) { grid.innerHTML = `<div class="empty-state"><p>La vitrine vous attend</p><span>Ajoutez vos premiers articles via le panneau Admin</span></div>`; return; }
+    if (!products.length) { 
+      grid.innerHTML = `<div class="empty-state"><p>La vitrine vous attend</p><span>Ajoutez vos premiers articles via le panneau Admin</span></div>`; 
+      return; 
+    }
     grid.innerHTML = products.map((p, idx) => `
-      <div class="product-card" onclick="ouvrirDetail(${idx})">
+      <div class="product-card" onclick="ouvrirDetail(${idx})" style="animation-delay: ${idx * 0.05}s">
         <div class="product-img-wrap">
           ${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy">` : `<div class="product-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Photo à venir</div>`}
           ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
@@ -698,7 +1953,7 @@
           <p class="product-desc">${p.desc || 'Pièce exclusive de la collection Minuit Chic.'}</p>
           <div class="product-footer">
             <span class="product-price"><span class="currency">DA </span>${parseInt(p.price).toLocaleString('fr-DZ')}</span>
-            <button class="product-buy-btn" onclick="event.stopPropagation(); commanderProduit('${p.name.replace(/'/g,"\\'")}')">Commander</button>
+            <button class="product-buy-btn" onclick="event.stopPropagation(); commanderProduit('${p.name.replace(/'/g, "\\'")}')">Commander</button>
           </div>
         </div>
       </div>`).join('');
@@ -707,7 +1962,10 @@
   function renderAdminList() {
     const list = document.getElementById('admin-list');
     updateCount();
-    if (!products.length) { list.innerHTML = `<p style="text-align:center;color:var(--gris);font-size:0.7rem;padding:2rem;">Aucun article pour le moment.</p>`; return; }
+    if (!products.length) { 
+      list.innerHTML = `<p style="text-align: center; color: var(--gris); font-size: 0.65rem; padding: 2rem;">Aucun article pour le moment.</p>`; 
+      return; 
+    }
     list.innerHTML = products.map((p, i) => `
       <div class="admin-product-item">
         <div class="admin-product-thumb">${p.img ? `<img src="${p.img}" alt="${p.name}">` : '🛍️'}</div>
@@ -721,15 +1979,15 @@
   }
 
   async function ajouterProduit() {
-    const name  = document.getElementById('p-name').value.trim();
+    const name = document.getElementById('p-name').value.trim();
     const price = document.getElementById('p-price').value.trim();
-    const cat   = document.getElementById('p-cat').value;
-    const desc  = document.getElementById('p-desc').value.trim();
+    const cat = document.getElementById('p-cat').value;
+    const desc = document.getElementById('p-desc').value.trim();
     const badge = document.getElementById('p-badge').value;
     if (!name || !price) { alert('Merci de renseigner le nom et le prix.'); return; }
     products.unshift({ name, price, cat, desc, badge, img: currentImgData, id: Date.now() });
     await saveProducts();
-    ['p-name','p-price','p-desc'].forEach(id => document.getElementById(id).value = '');
+    ['p-name', 'p-price', 'p-desc'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('p-badge').value = '';
     document.getElementById('img-preview').style.display = 'none';
     document.getElementById('img-input').value = '';
@@ -748,11 +2006,15 @@
   function previewImg(input) {
     if (!input.files || !input.files[0]) return;
     const reader = new FileReader();
-    reader.onload = e => { currentImgData = e.target.result; const prev = document.getElementById('img-preview'); prev.src = currentImgData; prev.style.display = 'block'; };
+    reader.onload = e => { 
+      currentImgData = e.target.result; 
+      const prev = document.getElementById('img-preview'); 
+      prev.src = currentImgData; 
+      prev.style.display = 'block'; 
+    };
     reader.readAsDataURL(input.files[0]);
   }
 
-  // ✅ NUMERO CORRIGÉ ICI - 213561538339
   function commanderProduit(nom) {
     window.open('https://wa.me/213561538339?text=' + encodeURIComponent('Bonjour Minuit Chic ! Je suis intéressée par : ' + nom), '_blank');
   }
@@ -802,39 +2064,66 @@
     }
   }
 
-  ['admin-overlay','login-overlay','forgot-overlay','detail-overlay'].forEach(id => {
+  ['admin-overlay', 'login-overlay', 'forgot-overlay', 'detail-overlay'].forEach(id => {
     document.getElementById(id).addEventListener('click', function(e) {
-      if (e.target === this) { this.classList.remove('open'); document.body.style.overflow = ''; if (id === 'admin-overlay') isLoggedIn = false; }
+      if (e.target === this) { 
+        this.classList.remove('open'); 
+        document.body.style.overflow = ''; 
+        if (id === 'admin-overlay') isLoggedIn = false; 
+      }
     });
   });
 
-  function togglePw(id, btn) { const el = document.getElementById(id); el.type = el.type === 'password' ? 'text' : 'password'; btn.textContent = el.type === 'password' ? 'voir' : 'cacher'; }
-  function showAlert(el, msg) { el.textContent = msg; el.classList.add('show'); }
-  function resetAlert(id) { const el = document.getElementById(id); if(el){ el.textContent=''; el.classList.remove('show'); } }
-  function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  // Fermer le menu mobile quand on clique sur un lien
+  document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
 
-  window.ouvrirLogin       = ouvrirLogin;
-  window.fermerLogin       = fermerLogin;
-  window.loginAdmin        = loginAdmin;
-  window.ouvrirForgot      = ouvrirForgot;
-  window.fermerForgot      = fermerForgot;
-  window.verifierEmail     = verifierEmail;
-  window.reinitialiserMdp  = reinitialiserMdp;
-  window.fermerAdmin       = fermerAdmin;
-  window.switchTab         = switchTab;
+  function togglePw(id, btn) { 
+    const el = document.getElementById(id); 
+    el.type = el.type === 'password' ? 'text' : 'password'; 
+    btn.textContent = el.type === 'password' ? 'voir' : 'cacher'; 
+  }
+  
+  function showAlert(el, msg) { 
+    el.textContent = msg; 
+    el.classList.add('show'); 
+  }
+  
+  function resetAlert(id) { 
+    const el = document.getElementById(id); 
+    if (el) { el.textContent = ''; el.classList.remove('show'); } 
+  }
+  
+  function isValidEmail(e) { 
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); 
+  }
+
+  // Exposer les fonctions globalement
+  window.toggleMobileMenu = toggleMobileMenu;
+  window.closeMobileMenu = closeMobileMenu;
+  window.ouvrirLogin = ouvrirLogin;
+  window.fermerLogin = fermerLogin;
+  window.loginAdmin = loginAdmin;
+  window.ouvrirForgot = ouvrirForgot;
+  window.fermerForgot = fermerForgot;
+  window.verifierEmail = verifierEmail;
+  window.reinitialiserMdp = reinitialiserMdp;
+  window.fermerAdmin = fermerAdmin;
+  window.switchTab = switchTab;
   window.sauvegarderCompte = sauvegarderCompte;
-  window.ajouterProduit    = ajouterProduit;
-  window.supprimerProduit  = supprimerProduit;
-  window.previewImg        = previewImg;
-  window.commanderProduit  = commanderProduit;
-  window.togglePw          = togglePw;
-  window.setupGo           = setupGo;
-  window.setupStep1        = setupStep1;
-  window.setupStep2        = setupStep2;
-  window.setupFinal        = setupFinal;
-  window.deconnecter       = deconnecter;
-  window.ouvrirDetail      = ouvrirDetail;
-  window.fermerDetail      = fermerDetail;
+  window.ajouterProduit = ajouterProduit;
+  window.supprimerProduit = supprimerProduit;
+  window.previewImg = previewImg;
+  window.commanderProduit = commanderProduit;
+  window.togglePw = togglePw;
+  window.setupGo = setupGo;
+  window.setupStep1 = setupStep1;
+  window.setupStep2 = setupStep2;
+  window.setupFinal = setupFinal;
+  window.deconnecter = deconnecter;
+  window.ouvrirDetail = ouvrirDetail;
+  window.fermerDetail = fermerDetail;
   window.commanderDepuisDetail = commanderDepuisDetail;
 
   init();
